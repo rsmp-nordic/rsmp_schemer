@@ -2,7 +2,9 @@
 	path = core
 	url = https://github.com/rsmp-nordic/rsmp_schema.git
 	branch = core
+	shallow = true
 [submodule "tlc"]
 	path = tlc
 	url = https://github.com/rsmp-nordic/rsmp_schema.git
 	branch = tlc
+	shallow = true
