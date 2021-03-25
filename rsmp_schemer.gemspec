@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pathname'
 require_relative "lib/rsmp_schemer/version"
 
 Gem::Specification.new do |spec|
@@ -23,6 +24,19 @@ Gem::Specification.new do |spec|
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{\A(?:test|spec|features)/}) }
   end
+
+  # Add schema files in submodules inside schema/
+  submodules = Pathname.new(__dir__) + 'schemas'
+  submodules.each_child() do |submodule_path|
+    Dir.chdir(submodule_path) do
+      relative = submodule_path.relative_path_from(__dir__)
+      `git ls-files`.split($\).each do |filename|
+        # for each git file, prepend relative submodule path and add to spec
+        spec.files << relative.join(filename).to_s
+      end
+    end
+  end
+
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
