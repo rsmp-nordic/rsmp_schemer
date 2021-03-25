@@ -26,13 +26,11 @@ Gem::Specification.new do |spec|
   end
 
   # Add schema files in submodules inside schema/
-  submodules = Pathname.new(__dir__) + 'schemas'
-  submodules.each_child() do |submodule_path|
+  `git submodule --quiet foreach pwd`.split($\).each do |submodule_path|
     Dir.chdir(submodule_path) do
-      relative = submodule_path.relative_path_from(__dir__)
+      relative_path = Pathname.new(submodule_path).relative_path_from __dir__
       `git ls-files`.split($\).each do |filename|
-        # for each git file, prepend relative submodule path and add to spec
-        spec.files << relative.join(filename).to_s
+        spec.files << relative_path.join(filename).to_s
       end
     end
   end
