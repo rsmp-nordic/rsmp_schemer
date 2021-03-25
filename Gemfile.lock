@@ -1,0 +1,46 @@
+PATH
+  remote: .
+  specs:
+    rsmp_schemer (0.1.0)
+      json_schemer (~> 0.2.18)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    diff-lcs (1.4.4)
+    ecma-re-validator (0.3.0)
+      regexp_parser (~> 2.0)
+    hana (1.3.7)
+    json_schemer (0.2.18)
+      ecma-re-validator (~> 0.3)
+      hana (~> 1.3)
+      regexp_parser (~> 2.0)
+      uri_template (~> 0.7)
+    rake (13.0.3)
+    regexp_parser (2.1.1)
+    rspec (3.9.0)
+      rspec-core (~> 3.9.0)
+      rspec-expectations (~> 3.9.0)
+      rspec-mocks (~> 3.9.0)
+    rspec-core (3.9.1)
+      rspec-support (~> 3.9.1)
+    rspec-expectations (3.9.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.9.0)
+    rspec-mocks (3.9.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.9.0)
+    rspec-support (3.9.2)
+    uri_template (0.7.0)
+
+PLATFORMS
+  x86_64-darwin-20
+
+DEPENDENCIES
+  rake (~> 13.0)
+  rsmp_schemer!
+  rspec (~> 3.9.0)
+  rspec-expectations (~> 3.9.1)
+
+BUNDLED WITH
+   2.2.15
