@@ -9,6 +9,7 @@ module RSMP
     # load schemas
     @@schemers = {
       core: {
+        '3.1.4' => JSONSchemer.schema( Pathname.new('schemas/core_3.1.4/schema/core/rsmp.json') ),
         '3.1.5' => JSONSchemer.schema( Pathname.new('schemas/core_3.1.5/schema/core/rsmp.json') )
       },
       tlc: {

@@ -3,7 +3,7 @@ RSpec.describe RSMP::Schemer do
     expect(RSMP::Schemer.has_schema?(:bad,'3.1.5')).to be(false) 
     expect(RSMP::Schemer.has_schema?(:bad,'1.0.15')).to be(false) 
 
-    expect(RSMP::Schemer.has_schema?(:core,'3.1.4')).to be(false) 
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.4')).to be(true) 
     expect(RSMP::Schemer.has_schema?(:core,'3.1.5')).to be(true) 
     expect(RSMP::Schemer.has_schema?(:core,'3.1.6')).to be(false) 
 
@@ -19,7 +19,7 @@ RSpec.describe RSMP::Schemer do
       "mId" => "E68A0010-C336-41ac-BD58-5C80A72C7092",
       "cId" => "AB+84001=860SG001"
     }
-    #expect(RSMP::Schemer.validate(message, :core, '3.1.4')).to_not be_nil
+    expect(RSMP::Schemer.validate(message, :core, '3.1.4')).to_not be_nil
     expect(RSMP::Schemer.validate(message, :core, '3.1.5')).to be_nil
   end
 

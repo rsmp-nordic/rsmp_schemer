@@ -1,15 +1,12 @@
-[submodule "core_3.1.4"]
+[submodule "schemas/core_3.1.4"]
 	path = schemas/core_3.1.4
 	url = https://github.com/rsmp-nordic/rsmp_schema.git
 	branch = core_3.1.4
-	shallow = true
-[submodule "core_3.1.5"]
+[submodule "schemas/core_3.1.5"]
 	path = schemas/core_3.1.5
 	url = https://github.com/rsmp-nordic/rsmp_schema.git
 	branch = core_3.1.5
-	shallow = true
-[submodule "tlc"]
+[submodule "schemas/tlc_1.0.15"]
 	path = schemas/tlc_1.0.15
 	url = https://github.com/rsmp-nordic/rsmp_schema.git
 	branch = tlc_1.0.15
-	shallow = true
