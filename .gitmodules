@@ -1,5 +1,5 @@
 [submodule "core_3.1.4"]
-	path = core_3.1.4
+	path = schemas/core_3.1.4
 	url = https://github.com/rsmp-nordic/rsmp_schema.git
 	branch = core_3.1.4
 	shallow = true
