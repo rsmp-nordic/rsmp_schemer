@@ -7,13 +7,14 @@ module RSMP
     end
 
     # load schemas
+    schemas_path = File.expand_path( File.join(__dir__,'..','..','schemas') )
     @@schemers = {
       core: {
-        '3.1.4' => JSONSchemer.schema( Pathname.new('schemas/core_3.1.4/schema/core/rsmp.json') ),
-        '3.1.5' => JSONSchemer.schema( Pathname.new('schemas/core_3.1.5/schema/core/rsmp.json') )
+        '3.1.4' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.4/schema/core/rsmp.json')) ),
+        '3.1.5' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.5/schema/core/rsmp.json')) )
       },
       tlc: {
-        '1.0.15' => JSONSchemer.schema( Pathname.new('schemas/tlc_1.0.15/schema/tlc/sxl.json') )
+        '1.0.15' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc_1.0.15/schema/tlc/sxl.json')) )
       }
     }
 
@@ -25,8 +26,10 @@ module RSMP
     def self.validate_with_schemer message, schemer
       unless schemer.valid? message
         schemer.validate(message).map do |item|
-          [item['data_pointer'],item['type'],item['details']].compact.join(' ').strip
+          [item['data_pointer'],item['type'],item['details']]
         end
+      else
+        []
       end
     end
 
@@ -51,9 +54,13 @@ module RSMP
       @@versions[type].include?(version)
     end
 
-    def self.validate message, type, version
-      schema = find_schema type, version
-      validate_with_schemer message, schema
+    def self.validate message, schemas
+      errors = schemas.flat_map do |type, version|
+        schema = find_schema type, version
+        validate_with_schemer(message, schema)
+      end
+      return nil if errors.empty?
+      errors
     end
 
   end
