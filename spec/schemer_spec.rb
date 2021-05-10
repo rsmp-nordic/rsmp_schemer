@@ -1,15 +1,19 @@
 RSpec.describe RSMP::Schemer do
   it 'has correct schemas' do
-    expect(RSMP::Schemer.has_schema?(:bad,'3.1.5')).to be(false) 
-    expect(RSMP::Schemer.has_schema?(:bad,'1.0.15')).to be(false) 
+    expect(RSMP::Schemer.has_schema?(:bad,'3.1.5')).to be(false)
+    expect(RSMP::Schemer.has_schema?(:bad,'1.0.15')).to be(false)
 
-    expect(RSMP::Schemer.has_schema?(:core,'3.1.4')).to be(true) 
-    expect(RSMP::Schemer.has_schema?(:core,'3.1.5')).to be(true) 
-    expect(RSMP::Schemer.has_schema?(:core,'3.1.6')).to be(false) 
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.0')).to be(false)
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.1')).to be(true)
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.2')).to be(true)
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.3')).to be(true)
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.4')).to be(true)
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.5')).to be(true)
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.6')).to be(false)
 
-    expect(RSMP::Schemer.has_schema?(:tlc,'1.0.14')).to be(false) 
-    expect(RSMP::Schemer.has_schema?(:tlc,'1.0.15')).to be(true) 
-    expect(RSMP::Schemer.has_schema?(:tlc,'1.0.16')).to be(false) 
+    expect(RSMP::Schemer.has_schema?(:tlc,'1.0.14')).to be(false)
+    expect(RSMP::Schemer.has_schema?(:tlc,'1.0.15')).to be(true)
+    expect(RSMP::Schemer.has_schema?(:tlc,'1.0.16')).to be(false)
   end
 
   it "accepts alarm request in core from 3.1.5," do
@@ -19,8 +23,8 @@ RSpec.describe RSMP::Schemer do
       "mId" => "E68A0010-C336-41ac-BD58-5C80A72C7092",
       "cId" => "AB+84001=860SG001"
     }
-    expect(RSMP::Schemer.validate(message, :core, '3.1.4')).to_not be_nil
-    expect(RSMP::Schemer.validate(message, :core, '3.1.5')).to be_nil
+    expect(RSMP::Schemer.validate(message, core: '3.1.4')).to be_a(Array)
+    expect(RSMP::Schemer.validate(message, core: '3.1.5')).to be_nil
   end
 
   it "accepts M0104 in tlc from 1.0.15" do
@@ -41,8 +45,20 @@ RSpec.describe RSMP::Schemer do
         }
       ]
     }
-    #expect(RSMP::Schemer.validate(message, :tlc, '1.0.14')).to_not be_nil
-    expect(RSMP::Schemer.validate(message, :tlc, '1.0.15')).to be_nil
+    #expect(RSMP::Schemer.validate(message, tlc: '1.0.14')).to be_a(Array)
+    expect(RSMP::Schemer.validate(message, tlc: '1.0.15')).to be_nil
+  end
+
+  it "raise exception when trying to validate against non-existing version" do
+    message = {
+      "mType" => "rSMsg",
+      "type" => "AggregatedStatusRequest",
+      "mId" => "E68A0010-C336-41ac-BD58-5C80A72C7092",
+      "cId" => "AB+84001=860SG001"
+    }
+    expect {
+      RSMP::Schemer.validate(message, core: '0.0.1')
+    }.to raise_error(RSMP::Schemer::UnknownSchemaError)
   end
 
 

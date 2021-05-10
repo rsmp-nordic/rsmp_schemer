@@ -10,6 +10,9 @@ module RSMP
     schemas_path = File.expand_path( File.join(__dir__,'..','..','schemas') )
     @@schemers = {
       core: {
+        '3.1.1' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.1/schema/core/rsmp.json')) ),
+        '3.1.2' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.2/schema/core/rsmp.json')) ),
+        '3.1.3' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.3/schema/core/rsmp.json')) ),
         '3.1.4' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.4/schema/core/rsmp.json')) ),
         '3.1.5' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.5/schema/core/rsmp.json')) )
       },
@@ -34,10 +37,13 @@ module RSMP
     end
 
     def self.find_schema type, version
-      types = @@schemers[type]
-      raise UnknownSchemaError.new("#{type} schema not found") unless types
+      raise ArgumentError.new("type missing") unless type
+      raise ArgumentError.new("version missing") unless version
+
+      types = @@schemers[type.to_sym]
+      raise UnknownSchemaError.new("Schema #{type} not found") unless types
       schema = types[version]
-      raise UnknownSchemaError.new("#{type} #{version} schema not found") unless schema
+      raise UnknownSchemaError.new("Schema #{type} #{version} not found") unless schema
       schema
     end
 
@@ -55,6 +61,8 @@ module RSMP
     end
 
     def self.validate message, schemas
+      raise ArgumentError unless message && schemas
+      raise ArgumentError unless schemas.is_a?(Hash) and schemas.any?
       errors = schemas.flat_map do |type, version|
         schema = find_schema type, version
         validate_with_schemer(message, schema)
