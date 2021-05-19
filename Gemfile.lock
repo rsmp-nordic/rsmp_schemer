@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rsmp_schemer (0.1.0)
+    rsmp_schemer (0.2.0)
       json_schemer (~> 0.2.18)
 
 GEM

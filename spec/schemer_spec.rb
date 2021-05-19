@@ -23,37 +23,24 @@ RSpec.describe RSMP::Schemer do
     expect(RSMP::Schemer.has_schema?(:tlc,'1.0.16')).to be(false)
   end
 
-  it "accepts alarm request in core from 3.1.5," do
-    message = {
-      "mType" => "rSMsg",
-      "type" => "AggregatedStatusRequest",
-      "mId" => "E68A0010-C336-41ac-BD58-5C80A72C7092",
-      "cId" => "AB+84001=860SG001"
-    }
-    expect(RSMP::Schemer.validate(message, core: '3.1.4')).to be_a(Array)
-    expect(RSMP::Schemer.validate(message, core: '3.1.5')).to be_nil
+  it 'raises when schema not found' do
+    expect {
+      RSMP::Schemer.find_schema!(:bad,'3.1.5')
+    }.to raise_error(RSMP::Schemer::UnknownSchemaTypeError)
+
+    expect {
+      RSMP::Schemer.find_schema!(:core,'0.0.0')
+    }.to raise_error(RSMP::Schemer::UnknownSchemaVersionError)
   end
 
-  it "accepts M0104 in tlc from 1.0.15" do
-    message = {
-      "mType" => "rSMsg",
-      "mId" => "4173c2c8-a933-43cb-9425-66d4613731ed",
-      "type" => "CommandRequest",
-      "siteId" => [
-        { "sId" => "RN+SI0001" }
-      ],
-      "cId" => "O+14439=481WA001",
-      "arg" => [
-        {
-          "cCI" => "M0104",
-          "n" => "year",
-          "cO" => "setDate",
-          "v" => "2021"
-        }
-      ]
-    }
-    #expect(RSMP::Schemer.validate(message, tlc: '1.0.14')).to be_a(Array)
-    expect(RSMP::Schemer.validate(message, tlc: '1.0.15')).to be_nil
+  it 'returns nil when schema not found' do
+    expect(RSMP::Schemer.find_schema(:bad,'3.1.5')).to be_nil
+    expect(RSMP::Schemer.find_schema(:bad,'3.1.5')).to be_nil
+  end
+
+  it 'finds schemas or return nil' do
+    expect(RSMP::Schemer.find_schemas(:core)).to be_a(Hash)
+    expect(RSMP::Schemer.find_schemas(:bad)).to be_nil
   end
 
   it "raise exception when trying to validate against non-existing version" do
@@ -65,7 +52,7 @@ RSpec.describe RSMP::Schemer do
     }
     expect {
       RSMP::Schemer.validate(message, core: '0.0.1')
-    }.to raise_error(RSMP::Schemer::UnknownSchemaError)
+    }.to raise_error(RSMP::Schemer::UnknownSchemaVersionError)
   end
 
 

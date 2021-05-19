@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
-module RsmpSchemer
-  VERSION = "0.1.0"
+module RSMP
+	module Schemer
+  	VERSION = "0.2.0"
+	end
 end
