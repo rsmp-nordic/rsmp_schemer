@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rsmp_schemer (0.2.0)
+    rsmp_schemer (0.2.1)
       json_schemer (~> 0.2.18)
 
 GEM
@@ -22,15 +22,15 @@ GEM
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
       rspec-mocks (~> 3.9.0)
-    rspec-core (3.9.1)
-      rspec-support (~> 3.9.1)
-    rspec-expectations (3.9.1)
+    rspec-core (3.9.3)
+      rspec-support (~> 3.9.3)
+    rspec-expectations (3.9.4)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
     rspec-mocks (3.9.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
-    rspec-support (3.9.2)
+    rspec-support (3.9.4)
     uri_template (0.7.0)
 
 PLATFORMS

@@ -5,3 +5,6 @@
 
 ## [0.2.0] - 2021-05-19
 - Updated interface
+
+## [0.2.1] - 2021-06-17
+- Updated schemas
