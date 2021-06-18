@@ -8,3 +8,7 @@
 
 ## [0.2.1] - 2021-06-17
 - Updated schemas
+
+## [0.2.2] - 2021-06-18
+- Option for lenient version string parsing
+ 
