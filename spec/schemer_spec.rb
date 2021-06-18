@@ -23,6 +23,16 @@ RSpec.describe RSMP::Schemer do
     expect(RSMP::Schemer.has_schema?(:tlc,'1.0.16')).to be(false)
   end
 
+  it 'parses versions strings strictly' do
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.5.extra.9.8.7')).to be(false)
+    expect(RSMP::Schemer.has_schema?(:tlc,'1.0.15.extra.9.8.7')).to be(false)
+  end
+
+  it 'parses versions strings leniently' do
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.5.extra.9.8.7', lenient: true)).to be(true)
+    expect(RSMP::Schemer.has_schema?(:tlc,'1.0.15.extra.9.8.7', lenient: true)).to be(true)
+  end
+
   it 'raises when schema not found' do
     expect {
       RSMP::Schemer.find_schema!(:bad,'3.1.5')

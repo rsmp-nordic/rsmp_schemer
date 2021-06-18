@@ -52,26 +52,35 @@ module RSMP::Schemer
     schemas
   end
 
-  def self.find_schema type, version
+  def self.find_schema type, version, options={}
     raise ArgumentError.new("version missing") unless version
-    schemas = find_schemas type
-    if schemas
-      schemas[version] 
-    else
-      nil
+    version = sanitize_version version if options[:lenient]
+    if version
+      schemas = find_schemas type
+      return schemas[version] if schemas
     end
+    nil
   end
 
-  def self.find_schema! type, version
+  def self.sanitize_version version
+    matched = /^\d+\.\d+\.\d+/.match version
+    matched.to_s if matched
+  end
+
+  def self.find_schema! type, version, options={}
+    schema = find_schema type, version, options
     raise ArgumentError.new("version missing") unless version
-    schemas = find_schemas! type
-    schema = schemas[version]
-    raise UnknownSchemaVersionError.new("Unknown schema version #{type} #{version}") unless schema
-    schema
+    version = sanitize_version version if options[:lenient]
+    if version
+      schemas = find_schemas! type
+      schema = schemas[version]
+      return schema if schema
+    end
+    raise UnknownSchemaVersionError.new("Unknown schema version #{type} #{version}")
   end
 
-  def self.has_schema? type, version
-    find_schema(type,version) != nil
+  def self.has_schema? type, version, options={}
+    find_schema(type,version, options) != nil
   end
 
   def self.validate message, schemas
