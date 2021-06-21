@@ -83,13 +83,13 @@ module RSMP::Schemer
     find_schema(type,version, options) != nil
   end
 
-  def self.validate message, schemas
+  def self.validate message, schemas, options={}
     raise ArgumentError.new("message missing") unless message
     raise ArgumentError.new("schemas missing") unless schemas
     raise ArgumentError.new("schemas must be a Hash") unless schemas.is_a?(Hash)
     raise ArgumentError.new("schemas cannot be empty") unless schemas.any?
     errors = schemas.flat_map do |type, version|
-      schema = find_schema! type, version
+      schema = find_schema! type, version, options
       validate_using_schema(message, schema)
     end
     return nil if errors.empty?

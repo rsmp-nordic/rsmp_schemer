@@ -65,5 +65,4 @@ RSpec.describe RSMP::Schemer do
     }.to raise_error(RSMP::Schemer::UnknownSchemaVersionError)
   end
 
-
 end
