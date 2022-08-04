@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "json_schemer", "~> 0.2.18"
+  spec.add_dependency "json_schemer", "~> 0.2.21"
 
   spec.add_development_dependency "rspec", "~> 3.9.0"
   spec.add_development_dependency "rspec-expectations", "~> 3.9.1"
