@@ -41,7 +41,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "json_schemer", "~> 0.2.21"
 
-  spec.add_development_dependency "rspec", "~> 3.9.0"
-  spec.add_development_dependency "rspec-expectations", "~> 3.9.1"
+  spec.add_development_dependency "rspec", "~> 3.11.0"
+  spec.add_development_dependency "rspec-expectations", "~> 3.11.0"
   spec.add_development_dependency "rake", "~> 13.0"
 end
