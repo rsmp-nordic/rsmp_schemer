@@ -8,23 +8,24 @@ module RSMP::Schemer
 
   def self.schemas
     return @@schemas if @@schemas
-    schemas_path = File.expand_path( File.join(__dir__,'..','..','schemas') )
+    schemas_path = File.expand_path( File.join(__dir__,'..','..','schemas','schemas') )
     @@schemas = {
       core: {
-        '3.1.2' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.2/schema/core/rsmp.json')) ),
-        '3.1.3' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.3/schema/core/rsmp.json')) ),
-        '3.1.4' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.4/schema/core/rsmp.json')) ),
-        '3.1.5' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core_3.1.5/schema/core/rsmp.json')) )
+        '3.1.1' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core','3.1.1','rsmp.json')) ),
+        '3.1.2' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core','3.1.2','rsmp.json')) ),
+        '3.1.3' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core','3.1.3','rsmp.json')) ),
+        '3.1.4' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core','3.1.4','rsmp.json')) ),
+        '3.1.5' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'core','3.1.5','rsmp.json')) )
       },
       # note that tlc 1.0.11 and 1.0.12 does not exist (unreleased drafts)
       tlc: {
-        '1.0.7' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc_1.0.7/schema/tlc/sxl.json')) ),
-        '1.0.8' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc_1.0.8/schema/tlc/sxl.json')) ),
-        '1.0.9' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc_1.0.9/schema/tlc/sxl.json')) ),
-        '1.0.10' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc_1.0.10/schema/tlc/sxl.json')) ),
-        '1.0.13' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc_1.0.13/schema/tlc/sxl.json')) ),
-        '1.0.14' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc_1.0.14/schema/tlc/sxl.json')) ),
-        '1.0.15' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc_1.0.15/schema/tlc/sxl.json')) )
+        '1.0.7'  => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc','1.0.7' ,'sxl.json')) ),
+        '1.0.8'  => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc','1.0.8' ,'sxl.json')) ),
+        '1.0.9'  => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc','1.0.9' ,'sxl.json')) ),
+        '1.0.10' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc','1.0.10','sxl.json')) ),
+        '1.0.13' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc','1.0.13','sxl.json')) ),
+        '1.0.14' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc','1.0.14','sxl.json')) ),
+        '1.0.15' => JSONSchemer.schema( Pathname.new(File.join(schemas_path, 'tlc','1.0.15','sxl.json')) )
       }
     }
   end

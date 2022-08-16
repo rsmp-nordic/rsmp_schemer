@@ -3,7 +3,8 @@ RSpec.describe RSMP::Schemer do
     expect(RSMP::Schemer.has_schema?(:bad,'3.1.5')).to be(false)
     expect(RSMP::Schemer.has_schema?(:bad,'1.0.15')).to be(false)
 
-    expect(RSMP::Schemer.has_schema?(:core,'3.1.1')).to be(false)
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.0')).to be(false)
+    expect(RSMP::Schemer.has_schema?(:core,'3.1.1')).to be(true)
     expect(RSMP::Schemer.has_schema?(:core,'3.1.2')).to be(true)
     expect(RSMP::Schemer.has_schema?(:core,'3.1.3')).to be(true)
     expect(RSMP::Schemer.has_schema?(:core,'3.1.4')).to be(true)
