@@ -1,4 +1,6 @@
 # RSMP Schemer
+Deprecated: Validation is now handled by rsmp_scheme.
+
 Gem for validating RSMP messages against RSMP JSON schemas.
 
 ## Background
